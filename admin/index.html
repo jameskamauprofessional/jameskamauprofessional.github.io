@@ -89,14 +89,40 @@ const APPS_SCRIPT_URL='https://james-kamau-api.kamaujames64.workers.dev';
 const API_MESSAGE='JK_ADMIN_API';
 const pendingRequests=new Map();
 function apiCall(action,args){
-  return new Promise((resolve,reject)=>{
-    const requestId='jk_'+Date.now()+'_'+Math.random().toString(36).slice(2);
-    const iframe=document.createElement('iframe'); iframe.name=requestId; iframe.style.display='none'; document.body.appendChild(iframe);
-    const form=document.createElement('form'); form.method='POST'; form.action=APPS_SCRIPT_URL; form.target=requestId; form.style.display='none';
-    const add=(name,value)=>{const i=document.createElement('input');i.type='hidden';i.name=name;i.value=value??'';form.appendChild(i)};
-    add('action',action); add('token',TOKEN||''); add('payload',JSON.stringify(args===undefined?null:args)); add('requestId',requestId);
-    pendingRequests.set(requestId,{resolve,reject,iframe,form}); document.body.appendChild(form);
-    try{form.submit()}catch(e){pendingRequests.delete(requestId);iframe.remove();form.remove();reject(e)}
+  return fetch(APPS_SCRIPT_URL,{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'
+    },
+    body:new URLSearchParams({
+      action:String(action||''),
+      token:String(TOKEN||''),
+      payload:JSON.stringify(args===undefined?null:args),
+      requestId:'jk_'+Date.now()+'_'+Math.random().toString(36).slice(2)
+    })
+  })
+  .then(async response=>{
+    const text=await response.text();
+
+    if(!response.ok){
+      throw new Error('API request failed: HTTP '+response.status);
+    }
+
+    let data;
+
+    try{
+      data=JSON.parse(text);
+    }catch(e){
+      throw new Error(
+        'The API returned an unexpected response. Please check the Cloudflare API Worker.'
+      );
+    }
+
+    if(!data.ok){
+      throw new Error(data.message||'Server request failed.');
+    }
+
+    return data.data;
   });
 }
 window.addEventListener('message',function(event){
