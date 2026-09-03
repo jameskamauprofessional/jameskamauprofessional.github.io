@@ -170,29 +170,8 @@ ORDER BY date;</pre>
 </main>
 
 <footer>© <span id="year"></span> James Kamau · Professional Portfolio</footer>
-<button class="admin-fab" onclick="openAdmin()">⚙ Admin</button><div id="status" class="status"></div>
+<a class="admin-fab" href="/admin/">⚙ Admin</a><div id="status" class="status"></div>
 
-<div id="adminModal" class="modal"><div class="modal-box">
-  <div class="modal-head"><h2>James Kamau — Admin Dashboard</h2><button class="close" onclick="closeAdmin()">×</button></div>
-  <div id="loginView" class="admin-body login"><h3>Administrator Login</h3>
-    <div class="notice">Use the administrator credentials configured in Code.gs.</div>
-    <div class="field"><label>Email</label><input id="loginEmail" type="email" autocomplete="username"></div>
-    <div class="field" style="margin-top:12px"><label>PIN</label><input id="loginPin" type="password" autocomplete="current-password"></div>
-    <div class="admin-actions"><button class="action save" onclick="login()">Sign In</button></div><div id="loginError" style="color:#b91c1c;font-size:13px"></div>
-  </div>
-
-  <div id="dashboardView" style="display:none"><div class="admin-body">
-    <div class="tabs">
-      <button class="tab active" onclick="tab('profile',this)">Profile</button><button class="tab" onclick="tab('content',this)">Homepage</button><button class="tab" onclick="tab('experience',this)">Experience</button>
-      <button class="tab" onclick="tab('education',this)">Education</button><button class="tab" onclick="tab('skills',this)">Skills</button>
-      <button class="tab" onclick="tab('projects',this)">Projects</button><button class="tab" onclick="tab('galleryAdmin',this)">Gallery</button>
-      <button class="tab" onclick="tab('contactAdmin',this)">Contact</button><button class="tab" onclick="tab('settings',this)">Settings</button>
-    </div>
-    <div id="panel-profile" class="admin-panel active"></div><div id="panel-content" class="admin-panel"></div><div id="panel-experience" class="admin-panel"></div>
-    <div id="panel-education" class="admin-panel"></div><div id="panel-skills" class="admin-panel"></div><div id="panel-projects" class="admin-panel"></div>
-    <div id="panel-galleryAdmin" class="admin-panel"></div><div id="panel-contactAdmin" class="admin-panel"></div><div id="panel-settings" class="admin-panel"></div>
-    <div class="admin-actions"><button class="action secondary" onclick="refreshAdmin()">↻ Refresh</button><button class="action danger" onclick="logout()">Log Out</button></div>
-  </div></div>
 </div></div>
 
 <script>
@@ -323,16 +302,9 @@ function loadSite(){
   document.head.appendChild(script);
 }
 
-function openAdmin(){
-  window.open(APPS_SCRIPT_URL,'_blank','noopener');
-}
 
-function closeAdmin(){}
 
-function login(){}
-function logout(){}
-function refreshAdmin(){}
-function tab(){}
+
 
 window.addEventListener('hashchange',routeHash);
 window.addEventListener('load',()=>{loadSite();routeHash()});

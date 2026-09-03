@@ -2,23 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jameskamauprofessional.github.io/</loc>
-  </url>
-  <url>
-    <loc>https://jameskamauprofessional.github.io/#expertise</loc>
-  </url>
-  <url>
-    <loc>https://jameskamauprofessional.github.io/#projects</loc>
-  </url>
-  <url>
-    <loc>https://jameskamauprofessional.github.io/#skills</loc>
-  </url>
-  <url>
-    <loc>https://jameskamauprofessional.github.io/#resume</loc>
-  </url>
-  <url>
-    <loc>https://jameskamauprofessional.github.io/#gallery</loc>
-  </url>
-  <url>
-    <loc>https://jameskamauprofessional.github.io/#contact</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
 </urlset>
