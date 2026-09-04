@@ -52,6 +52,372 @@ body{background:#020b17;overflow-x:hidden}
 .admin-topbar a{color:#58adf5;font-weight:800}
 .status{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:9999;background:#061b32;color:#fff;padding:12px 18px;border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.35);display:none;font-weight:700}
 @media(max-width:760px){.admin-shell{padding:8px}.admin-topbar{padding:0 4px;gap:10px}.modal-head h2{font-size:18px}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}.tabs{overflow-x:auto;flex-wrap:nowrap}.tab{white-space:nowrap}}
+  /* ============================================================
+   ADMIN LOGIN — TECHNICAL / FINANCIAL BACKGROUND
+   LOGIN ONLY — DO NOT AFFECT DASHBOARD
+   ============================================================ */
+
+/* Login background area */
+.admin-shell:has(#loginView[style*="display: block"]) {
+    position: relative;
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at 82% 35%,
+            rgba(0, 132, 255, .30),
+            transparent 27%
+        ),
+        radial-gradient(
+            circle at 12% 72%,
+            rgba(18, 94, 190, .24),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #020b17 0%,
+            #031b3b 48%,
+            #021027 100%
+        );
+}
+
+/* Technical grid */
+.admin-shell:has(#loginView[style*="display: block"])::before {
+    content: "";
+    position: fixed;
+    inset: 66px 0 0 0;
+    pointer-events: none;
+    z-index: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(65, 165, 240, .08) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(65, 165, 240, .08) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    transform:
+        perspective(700px)
+        rotateX(55deg)
+        scale(1.4);
+
+    transform-origin: center bottom;
+
+    mask-image:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,1),
+            rgba(0,0,0,.75) 55%,
+            transparent 100%
+        );
+
+    opacity: .65;
+}
+
+/* Atmospheric blue glow on the right */
+.admin-shell:has(#loginView[style*="display: block"])::after {
+    content: "";
+    position: fixed;
+    width: 650px;
+    height: 650px;
+    right: -170px;
+    top: 90px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(15, 128, 255, .20) 0%,
+            rgba(15, 90, 190, .10) 35%,
+            transparent 70%
+        );
+
+    filter: blur(10px);
+}
+
+/* ============================================================
+   LOGIN AREA
+   ============================================================ */
+
+.login-screen {
+    position: relative;
+    z-index: 5;
+
+    width: min(620px, calc(100% - 40px));
+    max-width: 620px;
+
+    margin: 70px auto 0 !important;
+    padding: 42px 50px 48px !important;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(7, 43, 82, .88),
+            rgba(3, 24, 49, .92)
+        ) !important;
+
+    border: 1px solid rgba(25, 145, 245, .72);
+
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.55),
+        0 0 45px rgba(0,120,255,.12),
+        inset 0 1px 0 rgba(255,255,255,.07);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+/* Subtle blue line above login card */
+.login-screen::before {
+    content: "";
+    position: absolute;
+
+    width: 80px;
+    height: 3px;
+
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: #1688e8;
+    border-radius: 0 0 5px 5px;
+
+    box-shadow:
+        0 0 18px rgba(22,136,232,.7);
+}
+
+/* ============================================================
+   LOGIN TYPOGRAPHY
+   ============================================================ */
+
+.login-screen h3 {
+    text-align: center;
+
+    font-size: 38px;
+    line-height: 1.15;
+
+    margin: 0 0 18px;
+
+    color: #f4f8ff;
+
+    letter-spacing: -.025em;
+}
+
+/* Make "Login" blue if heading uses separate span */
+.login-screen h3 span {
+    color: #1688e8;
+}
+
+/* Login description */
+.login-screen .notice {
+    text-align: center;
+
+    background: transparent !important;
+
+    color: #b9cde3 !important;
+
+    padding: 0 !important;
+
+    margin: 0 auto 30px !important;
+
+    font-size: 15px;
+
+    max-width: 470px;
+}
+
+/* Small blue divider */
+.login-screen .notice::after {
+    content: "";
+
+    display: block;
+
+    width: 68px;
+    height: 2px;
+
+    background: #1688e8;
+
+    margin: 25px auto 0;
+
+    box-shadow:
+        0 0 12px rgba(22,136,232,.65);
+}
+
+/* ============================================================
+   LOGIN FORM
+   ============================================================ */
+
+.login-screen .field {
+    margin-top: 18px;
+}
+
+.login-screen .field label {
+    color: #f0f6ff !important;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    margin-bottom: 2px;
+}
+
+.login-screen .field input {
+    width: 100%;
+
+    min-height: 58px;
+
+    padding: 14px 17px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(38, 78, 122, .78),
+            rgba(24, 56, 92, .82)
+        ) !important;
+
+    border: 1px solid rgba(151, 192, 228, .42) !important;
+
+    color: #ffffff !important;
+
+    font-size: 16px;
+
+    box-shadow:
+        inset 0 2px 5px rgba(0,0,0,.15),
+        0 5px 18px rgba(0,0,0,.08);
+}
+
+.login-screen .field input::placeholder {
+    color: #a8bed5;
+}
+
+.login-screen .field input:focus {
+    border-color: #1688e8 !important;
+
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(22,136,232,.14),
+        0 0 22px rgba(22,136,232,.12);
+}
+
+/* ============================================================
+   SIGN IN BUTTON
+   ============================================================ */
+
+.login-screen .admin-actions {
+    margin-top: 30px;
+}
+
+.login-screen .action.save {
+    width: 100%;
+
+    min-height: 60px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #159cff,
+            #0875d1
+        ) !important;
+
+    color: #ffffff !important;
+
+    font-size: 18px;
+
+    font-weight: 850;
+
+    border: 0;
+
+    box-shadow:
+        0 12px 30px rgba(0,116,220,.30),
+        inset 0 1px 0 rgba(255,255,255,.18);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.login-screen .action.save:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 16px 38px rgba(0,130,255,.40),
+        0 0 25px rgba(22,136,232,.18);
+}
+
+/* Login error */
+.login-screen #loginError {
+    text-align: center;
+
+    margin-top: 15px;
+
+    color: #ff9b9b !important;
+}
+
+/* ============================================================
+   MAKE LOGIN MODAL CONTAINER TRANSPARENT
+   ONLY WHILE LOGIN IS DISPLAYED
+   ============================================================ */
+
+.admin-shell:has(#loginView[style*="display: block"]) .modal {
+    background: transparent;
+}
+
+.admin-shell:has(#loginView[style*="display: block"]) .modal-box {
+    background: transparent !important;
+
+    box-shadow: none;
+
+    overflow: visible;
+}
+
+.admin-shell:has(#loginView[style*="display: block"]) .modal-head {
+    background: rgba(2,12,25,.72);
+
+    border-bottom:
+        1px solid rgba(85,160,220,.18);
+
+    backdrop-filter: blur(12px);
+}
+
+/* ============================================================
+   MOBILE LOGIN
+   ============================================================ */
+
+@media(max-width:700px) {
+
+    .login-screen {
+        width: calc(100% - 24px);
+
+        margin-top: 35px !important;
+
+        padding:
+            32px 22px 35px !important;
+
+        border-radius: 16px;
+    }
+
+    .login-screen h3 {
+        font-size: 30px;
+    }
+
+    .login-screen .field input {
+        min-height: 54px;
+    }
+}
 </style>
 </head>
 <body>
@@ -59,7 +425,7 @@ body{background:#020b17;overflow-x:hidden}
   <div class="admin-topbar"><span>Private administrator area · James Kamau Professional Portfolio</span><a href="/">← Back to Portfolio</a></div>
   <div id="adminModal" class="modal"><div class="modal-box">
   <div class="modal-head"><h2>James Kamau — Admin Dashboard</h2><button class="close" onclick="closeAdmin()">×</button></div>
-  <div id="loginView" class="admin-body login"><h3>Administrator Login</h3>
+  <div id="loginView" class="admin-body login login-screen"><h3>Administrator Login</h3>
     <div class="notice">Use the administrator credentials configured in Code.gs.</div>
     <div class="field"><label>Email</label><input id="loginEmail" type="email" autocomplete="username"></div>
     <div class="field" style="margin-top:12px"><label>PIN</label><input id="loginPin" type="password" autocomplete="current-password"></div>
