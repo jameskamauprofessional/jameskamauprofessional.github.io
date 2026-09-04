@@ -276,29 +276,51 @@ const APPS_SCRIPT_URL='https://james-kamau-api.kamaujames64.workers.dev';
 
 function loadSite(){
   showStatus('Loading professional profile…');
-  const callback='jkPortfolioCallback_'+Date.now();
+
+  const callback='jkPortfolioCallback';
+
+  // Remove any previous API script
+  const oldScript=document.getElementById('jkPortfolioApiScript');
+  if(oldScript) oldScript.remove();
+
   window[callback]=function(data){
     try{
-      if(data&&data.ok===false) throw new Error(data.message||'Backend returned an error.');
-      render(data||{});
-      showStatus('Profile loaded.');
+      render(data || {});
+      showStatus('');
+    }catch(error){
+      console.error('Portfolio render error:',error);
+      showStatus('Portfolio loaded, but some content could not be displayed.');
+    }
+
+    // Clean up callback after rendering
+    try{
+      delete window[callback];
     }catch(e){
-      console.error(e);
-      showStatus(e.message||'Unable to load profile.');
-    }finally{
-      try{delete window[callback]}catch(e){}
-      const s=document.getElementById(callback);
-      if(s) s.remove();
+      window[callback]=undefined;
     }
   };
+
   const script=document.createElement('script');
-  script.id=callback;
-  script.src=APPS_SCRIPT_URL+'?api=site&callback='+encodeURIComponent(callback)+'&_='+Date.now();
+
+  script.id='jkPortfolioApiScript';
+
+  script.src=
+    APPS_SCRIPT_URL+
+    '?api=site'+
+    '&callback='+encodeURIComponent(callback)+
+    '&_='+Date.now();
+
   script.onerror=function(){
-    showStatus('Unable to connect to the portfolio data service. Please try again.');
-    try{delete window[callback]}catch(e){}
+    console.error('Portfolio API failed to load.');
+    showStatus('Unable to load the latest portfolio data.');
+    try{
+      delete window[callback];
+    }catch(e){
+      window[callback]=undefined;
+    }
     script.remove();
   };
+
   document.head.appendChild(script);
 }
 
